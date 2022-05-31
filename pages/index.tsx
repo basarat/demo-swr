@@ -13,18 +13,19 @@ const Avatar = ({ avatar }: { avatar: string }) => {
 const Alias = () => {
   const { data: user } = useSWR<User>('/api/user', fetcher);
   if (!user) return null;
+
   return (
     <h1>{user.alias}</h1>
   );
 }
 
 const Home = () => {
-  const { data: user } = useSWR<User>('/api/user', fetcher);
+  const { data: user, isValidating, error } = useSWR<User>('/api/user', fetcher);
 
   return (<div style={{ textAlign: 'center' }}>
     {!!user && <>
       <Avatar avatar={user?.avatar} />
-      <Alias />
+      <Alias/>
     </>}
   </div>);
 }
